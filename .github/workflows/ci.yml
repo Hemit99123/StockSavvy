@@ -13,20 +13,29 @@ permissions:
 jobs:
   main:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
         with:
           filter: tree:0
           fetch-depth: 0
 
-      # Set up Node.js and cache pnpm
+      # Install pnpm globally first
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      # Set up Node.js (don't use cache: 'pnpm' unless pnpm is installed first)
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'pnpm'
 
-      # Install pnpm globally
-      - run: npm install -g pnpm
+      # Cache pnpm store manually (optional but better control)
+      - uses: actions/cache@v3
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
 
       # Install dependencies using pnpm
       - run: pnpm install --frozen-lockfile
