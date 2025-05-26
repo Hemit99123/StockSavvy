@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="/public/images/logo.png" width="30%" alt="Talem AI" />
+  <img src="/public/images/logo.png" width="30%" alt="StockSavvy" />
 </div>
 <hr>
 <div align="center" style="line-height: 1;">
