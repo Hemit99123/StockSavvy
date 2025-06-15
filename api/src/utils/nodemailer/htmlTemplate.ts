@@ -1,4 +1,4 @@
-export const getHTMLTemplate = (random4DigitNumber: string) => {
+export const getHTMLTemplate = (random4DigitNumber: number) => {
   return `
           <!DOCTYPE html>
           <html>
