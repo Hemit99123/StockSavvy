@@ -1,6 +1,7 @@
-import express from "express";
+import { Router } from "express";
 import indexController from "../controllers/index.controller.ts";
-const router = express.Router();
+
+const router: Router = Router();
 
 /**
  * @swagger

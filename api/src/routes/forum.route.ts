@@ -1,8 +1,8 @@
-import express from "express";
+import { Router } from "express";
 import {forumCommentController, forumController} from "../controllers/forum.controller.ts";
 import { authenticateSession } from "../middleware/session.middleware.ts";
 
-const router = express.Router();
+const router: Router = Router();
 
 // all forum related routes
 router.post("/create", authenticateSession, forumController.createQuestion);
