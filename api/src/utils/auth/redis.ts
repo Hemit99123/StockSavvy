@@ -1,15 +1,16 @@
 import dotenv from "dotenv";
 import { createClient } from "redis";
+import { RedisClientType } from "redis";
 
 dotenv.config();
 
 // Create Redis client for redis-om (sessions) without immediately connecting
-export const redisOMClient = createClient({
+export const redisOMClient: RedisClientType = createClient({
     url: process.env.REDIS_ENDPOINT
 });
 
 // Create Redis client for OTP operations without immediately connecting
-export const redisClient = createClient({
+export const redisClient: RedisClientType = createClient({
     url: process.env.REDIS_ENDPOINT
 });
 
