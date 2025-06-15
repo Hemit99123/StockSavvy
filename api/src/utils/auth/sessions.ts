@@ -1,7 +1,24 @@
 import type { Response, Request } from "express";
-import { Repository } from "redis-om";
+import { RedisConnection, Repository } from "redis-om";
 import sessionsSchema from "../../models/redis/sessions.ts"
-import { redisOMClient, connectRedis, disconnectRedis } from "./redis.ts";
+import { createClient } from "redis";
+import { Client } from "redis-om";
+
+const redisOMClient = new Client();
+
+export const connectRedis = async () => {
+  if (!redisOMClient.isOpen()) {
+    const redisClient = createClient({ url: process.env.REDIS_URL });
+    await redisClient.connect();
+    await redisOMClient.use(redisClient as unknown as RedisConnection);
+  }
+};
+
+export const disconnectRedis = async () => {
+  if (redisOMClient.isOpen()) {
+    await redisOMClient.close();
+  }
+};
 import { v4 as uuidv4 } from 'uuid';
 import dotenv from "dotenv"
 

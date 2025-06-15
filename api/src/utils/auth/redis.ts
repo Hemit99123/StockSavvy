@@ -1,7 +1,6 @@
 import dotenv from "dotenv";
 import { createClient } from "redis";
 import { RedisClientType } from "redis";
-
 dotenv.config();
 
 // Create Redis client for redis-om (sessions) without immediately connecting
