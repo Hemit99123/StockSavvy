@@ -31,9 +31,9 @@ const adminController = {
                     correctAnswer
                 })
             
-            successResponse(res, "Created question")
+            return successResponse(res, "Created question")
         } catch (error) {
-            errorResponse(res, error);
+            return errorResponse(res, error);
         }
     },
 
@@ -45,9 +45,9 @@ const adminController = {
             .delete(questionTable.default)
             .where(eq(questionTable.default.id, id))
 
-            successResponse(res, "Deleted question")
+            return successResponse(res, "Deleted question")
         } catch (error) {
-            errorResponse(res, error)
+            return errorResponse(res, error)
         }
     },
 
@@ -63,10 +63,10 @@ const adminController = {
             auth = false
           }
           
-          res.json({session: session, auth})
+          return res.json({session: session, auth})
     
         } catch (error) {
-          errorResponse(res, error)
+          return errorResponse(res, error)
         }
     }
     

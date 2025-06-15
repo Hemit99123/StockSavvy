@@ -27,10 +27,10 @@ export const forumController = {
                     email: session.email,
                     content
                 });
-            successResponse(res, "Forum question created")
+            return successResponse(res, "Forum question created")
 
         } catch (error: unknown) {
-            errorResponse(res,error)
+            return errorResponse(res,error)
         }
     },
 
@@ -49,10 +49,10 @@ export const forumController = {
                 // Match by both email and id, this way only the owner can delete a question
                 .where(and(eq(forum.email, session.email as string),eq(forum.id, id))); 
 
-            successResponse(res, "Deleted your question")
+            return successResponse(res, "Deleted your question")
             
         } catch(error) {
-            errorResponse(res,error)
+            return errorResponse(res,error)
         }
     },
 
@@ -64,10 +64,11 @@ export const forumController = {
             await db.update(forum)
                 .set({ content,question })
                 .where(and(eq(forum.id, id), eq(forum.email, session.email)));
-            successResponse(res, "Updated forum")
+
+             return successResponse(res, "Updated forum")
 
         } catch (error: unknown) {
-            errorResponse(res, error);
+            return errorResponse(res, error);
         }
     },
     
@@ -78,12 +79,12 @@ export const forumController = {
                 .select()
                 .from(forum)
             
-            res.status(200).json({
+            return res.status(200).json({
                 questions
             })
 
         } catch(error: unknown) {
-            errorResponse(res,error)
+            return errorResponse(res,error)
         }
     },
 
@@ -96,11 +97,11 @@ export const forumController = {
                 .from(forum)
                 .where(eq(forum.email, session.email as string))
             
-            res.status(200).json({
+            return res.status(200).json({
                 questions,
             })
         } catch(error) {
-            errorResponse(res,error)
+            return errorResponse(res,error)
         }
     },
 
@@ -113,12 +114,12 @@ export const forumController = {
                 .from(forum)
                 .where(eq(forum.id, Number(id)))
             
-            res.status(200).json({
+            return res.status(200).json({
                 question: questions[0],
             })
                 
         } catch(error) {
-            errorResponse(res, error)
+            return errorResponse(res, error)
         }
     }
 };
@@ -136,10 +137,10 @@ export const forumCommentController = {
                     content,
                     email: session.email
                 })
-            successResponse(res, "Successfully sent")
+            return successResponse(res, "Successfully sent")
 
         } catch(error) {
-            errorResponse(res, error)
+            return errorResponse(res, error)
         }
     },
 
@@ -154,10 +155,10 @@ export const forumCommentController = {
                 .delete(comment)
                 .where(and(eq(comment.email, session.email), eq(comment.id, id))); 
             
-            successResponse(res, "Deleted your comment successfully")
+            return successResponse(res, "Deleted your comment successfully")
             
         } catch (error) {
-            errorResponse(res, error);
+            return errorResponse(res, error);
         }
     },
 
@@ -170,12 +171,12 @@ export const forumCommentController = {
                 .from(comment)
                 .where(eq(comment.forumID, Number(id)))
             
-            res.status(200).json({
+            return res.status(200).json({
                 comments
             })
 
         } catch(error: unknown) {
-            errorResponse(res,error)
+            return errorResponse(res,error)
         }
     },
 }

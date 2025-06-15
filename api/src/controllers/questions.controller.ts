@@ -26,7 +26,9 @@ const questionsController = {
     const totalQuestions = countResult[0]?.count ?? 0;
     
     if (totalQuestions === 0) {
-        return null; // No questions available
+        return res.status(404).json({
+            error: "No questions available"
+        }); // No questions available
     }
     
     const randomOffset = Math.floor(Math.random() * totalQuestions);
@@ -39,12 +41,12 @@ const questionsController = {
         .limit(1);
     
         
-        res.status(200).json({
+        return res.status(200).json({
             question: questions[0]
         })
 
     } catch(error: unknown) {
-        errorResponse(res,error)
+        return errorResponse(res,error)
     }
   },
 
@@ -62,9 +64,9 @@ const questionsController = {
   
       const questions = await query;
   
-      res.status(200).json({ questions });
+      return res.status(200).json({ questions });
     } catch (error: unknown) {
-      errorResponse(res, error);
+      return errorResponse(res, error);
     }
   }
   

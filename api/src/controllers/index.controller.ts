@@ -2,7 +2,7 @@ import type { Request, Response } from "express";
 
 const indexController = {
   get: (req: Request, res: Response) => {
-    res.json({
+    return res.json({
       name: "StockSavvy Backend",
       author: "Hemit Patel",
       date_created: "December 24 2024",

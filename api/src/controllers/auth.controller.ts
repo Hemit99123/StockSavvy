@@ -35,10 +35,10 @@ const authController = {
       // sending the email to the user
       await transporter.sendMail(mailOptions);  
 
-      successResponse(res, "Sent email to user with OTP!")
+      return successResponse(res, "Sent email to user with OTP!")
 
     } catch (error) {
-      errorResponse(res, error)
+      return errorResponse(res, error)
     } finally {
       await disconnectOTPRedis();
     }
@@ -70,7 +70,7 @@ const authController = {
 
         // this deletes the otp right after its used (one-use)
         await redisClient.del(redisOTPKeyName(email))
-        successResponse(res, "Sucessfully logged in")
+        return successResponse(res, "Sucessfully logged in")
 
       } else {
         throw new Error(
@@ -82,7 +82,7 @@ const authController = {
         );      
       }
     } catch (error) {
-      errorResponse(res,error)
+      return errorResponse(res, error)
     } finally {
       await disconnectOTPRedis();
     }
@@ -105,10 +105,10 @@ const authController = {
       await db.delete(user).where(eq(user.email, session.email)).execute();
       await handleDestroySession(req, res);
 
-      successResponse(res, "Deleted user")
+      return successResponse(res, "Deleted user")
 
     } catch (error) {
-      errorResponse(res, error);
+      return errorResponse(res, error);
     }
   },
 
@@ -124,10 +124,10 @@ const authController = {
         auth = false
       }
       
-      res.json({session: session, auth})
+      return res.json({session: session, auth})
 
     } catch (error) {
-      errorResponse(res, error)
+      return errorResponse(res, error)
     }
   }
 };
