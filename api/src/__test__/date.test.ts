@@ -1,4 +1,4 @@
-import { convertDateFormat } from './utils/dateConverter.ts';
+import { convertDateFormat } from '../utils/dateConverter.ts';
 
 describe('convertDateFormat', () => {
   it('converts MM/DD/YYYY to YYYY-MM-DD', () => {
