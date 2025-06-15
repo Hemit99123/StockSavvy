@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Express } from "express";
 import swaggerUi from "swagger-ui-express";
 import swaggerSpecs from "./utils/docs/swaggerConfig.ts";
 import cors from "cors";
@@ -8,7 +8,7 @@ dotenv.config();
 
 // Server configuration
 const PORT = 3001;
-const app = express();
+const app: Express = express();
 
 // Routers
 import indexRoutes from "./routes/index.route.ts";
