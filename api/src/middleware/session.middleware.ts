@@ -11,7 +11,7 @@ export const authenticateSession = async (
 
   const session = await handleGetSession(req)
   if (session.name && session.email && session.role) {
-    next();
+    return next();
   } else {
     return res.status(401).json({
       message:
@@ -29,7 +29,7 @@ export const authenticateAdminSession = async (
   const session = await handleGetSession(req)
 
   if (session.name && session.email && session.role == "Admin") {
-    next();
+    return next();
   } else {
     return res.status(401).json({
       message:
