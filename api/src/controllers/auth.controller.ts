@@ -49,7 +49,7 @@ const authController = {
       const { email, name, otp } = req.body;
 
       // this finds from the sql DB itself
-      let userList = await db.select().from(user).where(eq(user.email, email)).execute();
+      const userList = await db.select().from(user).where(eq(user.email, email)).execute();
       const userObj = userList[0]
       let role;
 
