@@ -1,4 +1,4 @@
-import { greeter } from './greeter';
+import { greeter } from './lib/greeter.ts';
 
 describe('greeter', () => {
   it('returns "Good morning" between 5 and 11', () => {
