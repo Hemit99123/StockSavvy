@@ -19,9 +19,9 @@ const questionsController = {
         // Get random question document
         
         const countResult = await db
-        .select({ count: sql<number>`COUNT(*)` })
-        .from(question)
-        .where(eq(question.type, type as string));
+          .select({ count: sql<number>`COUNT(*)` })
+          .from(question)
+          .where(eq(question.type, type as string));
     
     const totalQuestions = countResult[0]?.count ?? 0;
     
