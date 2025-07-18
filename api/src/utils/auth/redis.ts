@@ -3,10 +3,6 @@ import { createClient } from "redis";
 
 dotenv.config();
 
-// Create Redis client for redis-om (sessions) without immediately connecting
-export const redisOMClient: any = createClient({
-    url: process.env.REDIS_ENDPOINT
-});
 
 // Create Redis client for OTP operations without immediately connecting
 export const redisClient: any = createClient({
@@ -16,10 +12,10 @@ export const redisClient: any = createClient({
 // Connection management functions for redisOMClient (sessions)
 export const connectRedis = async () => {
     try {
-        if (!redisOMClient.isOpen) {
-            await redisOMClient.connect();
+        if (!redisClient.isOpen) {
+            await redisClient.connect();
         }
-        return redisOMClient;
+        return redisClient;
     } catch (error) {
         console.error("Redis session connection failed:", error);
         throw error;
@@ -28,33 +24,10 @@ export const connectRedis = async () => {
 
 export const disconnectRedis = async () => {
     try {
-        if (redisOMClient.isOpen) {
-            await redisOMClient.quit();
-        }
-    } catch (error) {
-        console.error("Redis session disconnection failed:", error);
-    }
-};
-
-// Connection management functions for redisClient (OTP)
-export const connectOTPRedis = async () => {
-    try {
-        if (!redisClient.isOpen) {
-            await redisClient.connect();
-        }
-        return redisClient;
-    } catch (error) {
-        console.error("Redis OTP connection failed:", error);
-        throw error;
-    }
-};
-
-export const disconnectOTPRedis = async () => {
-    try {
         if (redisClient.isOpen) {
             await redisClient.quit();
         }
     } catch (error) {
-        console.error("Redis OTP disconnection failed:", error);
+        console.error("Redis session disconnection failed:", error);
     }
 };

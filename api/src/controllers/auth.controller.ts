@@ -4,7 +4,7 @@ import user  from "../models/db/user.ts";
 import { eq } from "drizzle-orm";
 import { errorResponse, successResponse } from "../utils/response/index.ts";
 import { handleCreateSession, handleDestroySession, handleGetSession } from "../utils/auth/sessions.ts";
-import { redisClient, connectOTPRedis, disconnectOTPRedis } from "../utils/auth/redis.ts";
+import { connectRedis, disconnectRedis, redisClient } from "../utils/auth/redis.ts";
 import { transporter } from "../utils/nodemailer/index.ts";
 import { getHTMLTemplate } from "../utils/nodemailer/htmlTemplate.ts";
 
@@ -21,7 +21,7 @@ const authController = {
 
       const html = await getHTMLTemplate(random4DigitNumber)
       
-      await connectOTPRedis();
+      await connectRedis();
       await redisClient.set(redisOTPKeyName(email), random4DigitNumber, {
         EX: 180000
       })
@@ -40,7 +40,7 @@ const authController = {
     } catch (error) {
       return errorResponse(res, error)
     } finally {
-      await disconnectOTPRedis();
+      await disconnectRedis();
     }
   },
 
@@ -53,7 +53,7 @@ const authController = {
       const userObj = userList[0]
       let role;
 
-      await connectOTPRedis();
+      await connectRedis();
       const otpFromEmail = await redisClient.get(redisOTPKeyName(email))
 
       if (otpFromEmail == otp && user) {
@@ -84,7 +84,7 @@ const authController = {
     } catch (error) {
       return errorResponse(res, error)
     } finally {
-      await disconnectOTPRedis();
+      await disconnectRedis();
     }
   },
 
