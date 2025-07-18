@@ -1,8 +1,8 @@
 import type { Response, Request } from "express";
-import { RedisConnection, Repository } from "redis-om";
+import type { RedisConnection } from 'redis-om';
+import { Repository, Client } from "redis-om";
 import sessionsSchema from "../../models/redis/sessions.ts"
 import { createClient } from "redis";
-import { Client } from "redis-om";
 
 const redisOMClient = new Client();
 

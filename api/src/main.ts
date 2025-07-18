@@ -1,4 +1,5 @@
-import express, { Express } from "express";
+import type { Express } from "express";
+import express from "express";
 import swaggerUi from "swagger-ui-express";
 import swaggerSpecs from "./utils/docs/swaggerConfig.ts";
 import cors from "cors";
